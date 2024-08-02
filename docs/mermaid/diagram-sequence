@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant Développeur
+    participant SymfonyCLI
+    participant Database
+
+    loop
+    Développeur->>SymfonyCLI: make:entity
+    SymfonyCLI-->>Développeur: Nom de l'entité ?
+    Développeur->>SymfonyCLI: Squirrel
+    loop
+    SymfonyCLI-->>Développeur: Lister les propriétés à ajouter
+    Développeur->>SymfonyCLI: Nom, type, caractéristiques
+    end
+    SymfonyCLI->>Développeur: Fichier Squirrel créé ou mis à jour
+    end
+    Développeur->>SymfonyCLI: make:migration
+    SymfonyCLI-->>Développeur: Génération du fichier de migrations
+    Note over Développeur: Vérifier le fichier de migrations 👀
+    Développeur->>SymfonyCLI: doctrine:migrations:migrate
+    SymfonyCLI->>Database: Appliquer la migration
+    Database-->>Développeur: Migration appliquée avec succès ou erreur
